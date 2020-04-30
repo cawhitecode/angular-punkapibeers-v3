@@ -1,0 +1,47 @@
+<app-beer-filters #filters></app-beer-filters>
+<div *ngIf="(beers$ | async)?.length > 0; else noBeers">
+  <div class="row mx-auto">
+    <div class="col-1">
+    </div>
+      <div class="col-10">        
+        <div class="row mx-auto">
+        <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 mx-auto" *ngFor="let beer of beers$ | async">
+      <div class="wrapper">
+      <div class="card">
+        <div class="front">
+          <h2>{{ beer.name }}</h2>
+        </div>
+        <div class="right">
+          <h5>{{ beer.tagline }}</h5>
+            <div class="row mx-auto">
+              <div class="col-7">
+                <ul>
+                <li>ABV: {{ beer.abv }}% </li>
+                <li>IBU: {{ beer.ibu }}</li>
+                <li>EBC: {{ beer.ebc }}</li>
+                <li>PH: {{ beer.ph }}</li>
+                <li>First Brewed: {{ beer.first_brewed}}</li>
+                </ul>
+              </div>
+               <div class="col-5">
+                 <app-beer-modal-more-info [beer]="beer"></app-beer-modal-more-info>
+               </div>
+            </div>
+        </div>
+      </div>
+      <div class="img-wrapper">
+          <img src='{{ beer.image_url }}' onerror="this.src='https://lh6.googleusercontent.com/proxy/B98vak4HyrMSmACUPipeDwB9jobWDfwbqQ4PjqPmYvR4pK8SKWoZZfbuURguZ0ajuJymC75ECxiW9fPmrhm1Yx_Fq_S4gRDdetLycmazD5WKJCO41-4fmKnmjFHwFlSI4CzQwdFtfJADmFjlyICU3TEIcChERo0';" alt=''>    
+      </div>
+    </div>    
+    </div>
+      </div>
+  </div>
+  <div class="col-1">
+    <app-go-to-top></app-go-to-top>
+    </div>
+  <app-infinite-scroll></app-infinite-scroll>
+</div>
+</div>
+<ng-template #noBeers>
+  <app-beer-empty [filters]="filters"></app-beer-empty>
+</ng-template>
